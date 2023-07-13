@@ -5,39 +5,30 @@ include(cmake/prelude.cmake)
 project(
     mylibfaustembedded
     VERSION 0.1.0
-    DESCRIPTION "Short description"
-    HOMEPAGE_URL "https://example.com/"
+    DESCRIPTION ""
+    HOMEPAGE_URL ""
     LANGUAGES CXX
 )
 
 include(cmake/project-is-top-level.cmake)
 include(cmake/variables.cmake)
 
-# ---- Declare library ----
-
-add_library(
-    mylibfaustembedded_lib OBJECT
-    source/lib.cpp
-)
-
-target_include_directories(
-    mylibfaustembedded_lib ${warning_guard}
-    PUBLIC
-    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>"
-)
-
-target_compile_features(mylibfaustembedded_lib PUBLIC cxx_std_17)
-
 # ---- Declare executable ----
-
+add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
 add_executable(mylibfaustembedded_exe source/main.cpp)
 add_executable(mylibfaustembedded::exe ALIAS mylibfaustembedded_exe)
+target_link_libraries(mylibfaustembedded_exe PUBLIC ${PROJECT_SOURCE_DIR}/lib/libfaustwithllvm.a)
 
 set_property(TARGET mylibfaustembedded_exe PROPERTY OUTPUT_NAME mylibfaustembedded)
 
-target_compile_features(mylibfaustembedded_exe PRIVATE cxx_std_17)
+target_compile_features(mylibfaustembedded_exe PRIVATE cxx_std_11)
 
-target_link_libraries(mylibfaustembedded_exe PRIVATE mylibfaustembedded_lib)
+target_include_directories(
+    mylibfaustembedded_exe ${warning_guard}
+    PUBLIC
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>"
+    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/faust/architecture>"
+)
 
 # ---- Install rules ----
 
