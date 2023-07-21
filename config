@@ -1,0 +1,16 @@
+[General]
+unpack=true
+bootstrap=Ubuntu
+aptsources=Ubuntu
+
+[Ubuntu]
+packages=libxml2-dev libxml2-dev libtinfo-dev zlib1g-dev apt llvm-14 llvm-14-dev libclang-common-14-dev
+source=http://ports.ubuntu.com/
+components=main restricted universe multiverse
+suite=jammy
+
+[Faustdeps]
+packages=llvm-15 llvm-15-dev libpolly-15-dev
+source=http://ports.ubuntu.com/
+nopecomponents=main restricted universe multiverse
+suite=jammy-security
