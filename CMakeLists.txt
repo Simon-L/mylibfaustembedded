@@ -17,7 +17,8 @@ include(cmake/variables.cmake)
 add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
 add_executable(mylibfaustembedded_exe source/main.cpp)
 add_executable(mylibfaustembedded::exe ALIAS mylibfaustembedded_exe)
-target_link_libraries(mylibfaustembedded_exe PUBLIC ${PROJECT_SOURCE_DIR}/lib/libfaustwithllvm.a)
+# target_link_libraries(mylibfaustembedded_exe PUBLIC ${PROJECT_SOURCE_DIR}/lib/libfaustwithllvm.a)
+target_link_libraries(mylibfaustembedded_exe PUBLIC "/home/xox/Programmation/grame-faust/build/lib/libfaustwithllvm.a")
 
 set_property(TARGET mylibfaustembedded_exe PROPERTY OUTPUT_NAME mylibfaustembedded)
 
@@ -27,7 +28,8 @@ target_include_directories(
     mylibfaustembedded_exe ${warning_guard}
     PUBLIC
     "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source>"
-    "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/faust/architecture>"
+    # "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/faust/architecture>"
+    "/home/xox/Programmation/grame-faust/architecture"
 )
 
 # ---- Install rules ----
